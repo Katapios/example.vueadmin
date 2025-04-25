@@ -1,4 +1,5 @@
 <?php
+
 namespace Example\Vueadmin;
 
 use Bitrix\Main\Localization\Loc;

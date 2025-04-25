@@ -21,12 +21,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 
-const entities = ref([])
+const entities = ref([]);
 
 onMounted(async () => {
-  const res = await fetch('/bitrix/admin/ajax_crm_entities.php')
-  entities.value = await res.json()
-})
+  const res = await fetch("/bitrix/admin/ajax_crm_entities.php");
+  entities.value = await res.json();
+});
 </script>

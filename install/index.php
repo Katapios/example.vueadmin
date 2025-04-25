@@ -1,5 +1,7 @@
 <?php
+
 use Bitrix\Main\ModuleManager;
+use Bitrix\Main\Localization\Loc;
 
 class example_vueadmin extends CModule
 {
@@ -13,6 +15,7 @@ class example_vueadmin extends CModule
         $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
         $this->MODULE_NAME = 'Vue Admin Module';
         $this->MODULE_DESCRIPTION = 'Административный интерфейс с Vue 3';
+        $this->PARTNER_NAME = Loc::getMessage("VUEADMIN_MODULE_PARTNER_NAME");
     }
 
     public function DoInstall()
@@ -112,5 +115,4 @@ class example_vueadmin extends CModule
         // Удаляем JS-бандлы
         DeleteDirFilesEx("/bitrix/js/" . $this->MODULE_ID);
     }
-
 }
