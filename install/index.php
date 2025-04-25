@@ -19,8 +19,29 @@ class example_vueadmin extends CModule
     {
         ModuleManager::registerModule($this->MODULE_ID);
 
+        UnRegisterModuleDependences(
+            "main",
+            "OnBuildGlobalMenu",
+            $this->MODULE_ID,
+            "Example\\Vueadmin\\Menu",
+            "addAdminMenu"
+        );
+
+        RegisterModuleDependences(
+            "main",
+            "OnBuildGlobalMenu",
+            $this->MODULE_ID,
+            "Example\\Vueadmin\\Menu",
+            "addAdminMenu"
+        );
+
         // Копируем JS
-        CopyDirFiles(__DIR__ . "/js", $_SERVER["DOCUMENT_ROOT"] . "/bitrix/js/" . $this->MODULE_ID, true, true);
+        CopyDirFiles(
+            __DIR__ . "/js/" . $this->MODULE_ID,
+            $_SERVER["DOCUMENT_ROOT"] . "/bitrix/js/" . $this->MODULE_ID,
+            true,
+            true
+        );
 
         // Копируем admin-файлы и создаём обёртки
         $adminDir = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/admin";
@@ -29,17 +50,31 @@ class example_vueadmin extends CModule
             CopyDirFiles($file, "$adminDir/{$this->MODULE_ID}_$fileName", true, true);
             file_put_contents("$adminDir/$fileName", "<?php require(\$_SERVER['DOCUMENT_ROOT'].'/local/modules/{$this->MODULE_ID}/install/admin/$fileName'); ?>");
         }
-
-        // Обёртка меню
-        file_put_contents(
-            "$adminDir/{$this->MODULE_ID}_menu.php",
-            "<?php require(\$_SERVER['DOCUMENT_ROOT'].'/local/modules/{$this->MODULE_ID}/install/admin/menu.php'); ?>"
-        );
     }
 
     public function DoUninstall()
     {
+
+        UnRegisterModuleDependences(
+            "main",
+            "OnBuildGlobalMenu",
+            $this->MODULE_ID,
+            "Example\\Vueadmin\\Menu",
+            "addAdminMenu"
+        );
+
+
+        UnRegisterModuleDependences(
+            "main",
+            "OnBuildGlobalMenu",
+            $this->MODULE_ID,
+            "Example\\Vueadmin\\Menu",
+            "addAdminMenu"
+        );
+
         ModuleManager::unRegisterModule($this->MODULE_ID);
+
+
 
         $adminDir = $_SERVER["DOCUMENT_ROOT"] . "/bitrix/admin";
         foreach (glob(__DIR__ . "/admin/*.php") as $file) {
